@@ -1,0 +1,17 @@
+version: "3"
+services:
+  filebrowser:
+    entrypoint: /filebrowser -p 443 --database /data/filebrowser.db --config /config/filebrowser.json --cert /keys/cert3.pem --key /keys/privkey3.pem
+    container_name: filebrowser 
+    restart: always
+    image: filebrowser/filebrowser
+    ports:
+      - 443:443
+    volumes:
+      - /srv:/srv
+      - /fb/letsencrypt/conf/archive/gallagher.fun/:/keys
+      - /fb/config:/config
+      - /fb/data:/data
+    environment:
+      - PUID=1000
+      - PGID=1000
